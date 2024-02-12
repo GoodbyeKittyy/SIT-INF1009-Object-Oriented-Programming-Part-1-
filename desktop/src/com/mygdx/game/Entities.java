@@ -22,4 +22,10 @@ public abstract class Entities implements Collidable { // Make Entities abstract
     public void handleCollision(Entities entity, Entities collidedObj) {
         // Implement collision handling logic here
     }
+
+    public void update(float deltaTime) {
+    }
+
+    public void draw(SpriteBatch spriteBatch) {
+    }
 }

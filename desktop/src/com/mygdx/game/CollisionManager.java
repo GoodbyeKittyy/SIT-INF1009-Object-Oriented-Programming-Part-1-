@@ -11,4 +11,10 @@ public class CollisionManager {
     public void checkCollisions() {
         // Collision checking logic is correct as per the UML
     }
+
+    public void addCollidable(Collidable entity) {
+    }
+
+    public void removeCollidable(Collidable entity) {
+    }
 }
