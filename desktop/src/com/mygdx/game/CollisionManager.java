@@ -4,17 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionManager {
-    private List<Collidable> collidables = new ArrayList<>(); // Corrected to manage Collidable objects
+    private List<Collidable> collidables = new ArrayList<>();
 
-    // Other methods remain unchanged...
+    public void addCollidable(Collidable collidable) {
+        collidable.setCollisionManager(this);
+        collidables.add(collidable);
+    }
+
+    public void removeCollidable(Collidable collidable) {
+        collidables.remove(collidable);
+    }
 
     public void checkCollisions() {
-        // Collision checking logic is correct as per the UML
-    }
-
-    public void addCollidable(Collidable entity) {
-    }
-
-    public void removeCollidable(Collidable entity) {
+        for (Collidable collidable1 : collidables) {
+            List<Entities> collidableEntities1 = collidable1.getCollidableEntities();
+            for (Collidable collidable2 : collidables) {
+                if (collidable1 != collidable2) {
+                    List<Entities> collidableEntities2 = collidable2.getCollidableEntities();
+                    for (Entities entity1 : collidableEntities1) {
+                        for (Entities entity2 : collidableEntities2) {
+                            if (entity1.collidesWith(entity2)) {
+                                collidable1.handleCollision(entity1, entity2);
+                                collidable2.handleCollision(entity2, entity1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
