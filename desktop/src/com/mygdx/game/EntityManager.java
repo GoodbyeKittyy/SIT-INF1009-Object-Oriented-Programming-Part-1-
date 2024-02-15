@@ -6,31 +6,25 @@ import java.util.List;
 
 public class EntityManager {
     private List<Entities> entities = new ArrayList<>();
-    private CollisionManager collisionManager; // Added reference to CollisionManager
+    private final CollisionManager collisionManager;
 
     public EntityManager(CollisionManager collisionManager) {
-        this.collisionManager = collisionManager; // Initialize the CollisionManager
+        this.collisionManager = collisionManager;
     }
 
     public void addEntity(Entities entity) {
         entities.add(entity);
-        if (entity instanceof Collidable) {
-            collisionManager.addCollidable((Collidable) entity);
-        }
     }
 
     public void removeEntity(Entities entity) {
         entities.remove(entity);
-        if (entity instanceof Collidable) {
-            collisionManager.removeCollidable((Collidable) entity);
-        }
     }
 
     public void update(float deltaTime) {
-        for (Entities entity : new ArrayList<>(entities)) {
+        for (Entities entity : entities) {
             entity.update(deltaTime);
         }
-        collisionManager.checkCollisions(); // Check for collisions
+        collisionManager.checkCollisions();
     }
 
     public void draw(SpriteBatch spriteBatch) {

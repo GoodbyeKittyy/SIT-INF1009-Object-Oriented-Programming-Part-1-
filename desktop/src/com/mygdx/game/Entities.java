@@ -1,31 +1,35 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
-public abstract class Entities implements Collidable { // Make Entities abstract and implement Collidable
+public abstract class Entities {
     protected int x, y;
-    protected String image;
     protected int width, height;
-    protected Sprite sprite;
 
-    // Constructor and other methods remain unchanged...
+    public Entities(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 
-    @Override
+    public abstract void update(float deltaTime);
+
+    public abstract void draw(SpriteBatch spriteBatch);
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+    }
+
     public boolean collidesWith(Entities entity) {
-        // Implement collision detection logic here
-        return false;
+        Rectangle thisBounds = this.getBounds();
+        Rectangle otherBounds = entity.getBounds();
+        return thisBounds.overlaps(otherBounds);
     }
 
-    @Override
     public void handleCollision(Entities entity, Entities collidedObj) {
-        // Implement collision handling logic here
-    }
-
-    public void update(float deltaTime) {
-    }
-
-    public void draw(SpriteBatch spriteBatch) {
+        // Handle collision logic here
+        // This is an abstract method, so subclasses must implement it
     }
 }
