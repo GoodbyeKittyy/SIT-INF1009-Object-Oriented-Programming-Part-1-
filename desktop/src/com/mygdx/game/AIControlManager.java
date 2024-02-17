@@ -39,6 +39,7 @@ public class AIControlManager {
 
     }
 
+    //for the ai to follow the lifecycle
     public interface ApplicationListener {
         void onGameStart();
         void onGameEnd();
