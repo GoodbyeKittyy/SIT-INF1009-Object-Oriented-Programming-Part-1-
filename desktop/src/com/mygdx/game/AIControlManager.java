@@ -15,8 +15,8 @@ public class AIControlManager {
 
     // Method to control AI entities in the game but dk what game so cannot control.
     //unless u wan the AI to follow player then can add inside if not idk what to put for a basic control AI
-    public void controlAI(List<Entity> entities) {
-        for (Entity entity : entities) {
+    public void controlAI(List<Entities> entities) {
+        for (Entities entity : entities) {
         }
     }
 
