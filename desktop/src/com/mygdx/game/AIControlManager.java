@@ -21,7 +21,7 @@ public class AIControlManager {
     }
 
     public void directRelationshipWithGameManager() {
-        gameManager.addLifecycleListener(new ApplicationListener() {
+        /*gameManager.addLifecycleListener(new ApplicationListener() {
             @Override
             // AI move when the game starts, DK what game so idk what to put inside
             public void onGameStart() {
@@ -31,7 +31,7 @@ public class AIControlManager {
             //AI stop all activities when the game ends
             public void onGameEnd() {
             }
-        });
+        });*/
     }
 
     //Method to link with player control manager but idk what to put cuz idk wat game we going for
