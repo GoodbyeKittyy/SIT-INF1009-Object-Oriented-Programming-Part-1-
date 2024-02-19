@@ -10,7 +10,6 @@ public class OutputManager {
 
     private Music backgroundMusic;
     private Sound effectSound;
-    private BitmapFont font;
     private SpriteBatch spriteBatch;
 
     public OutputManager() {
@@ -38,17 +37,11 @@ public class OutputManager {
         effectSound.play();
     }
 
-    public void drawText(String text, float x, float y) {
-        spriteBatch.begin();
-        font.draw(spriteBatch, text, x, y);
-        spriteBatch.end();
-    }
 
     public void dispose() {
         // Dispose of your audio and rendering components when you're done with them
         if (backgroundMusic != null) backgroundMusic.dispose();
         if (effectSound != null) effectSound.dispose();
         if (spriteBatch != null) spriteBatch.dispose();
-        if (font != null) font.dispose();
     }
 }
