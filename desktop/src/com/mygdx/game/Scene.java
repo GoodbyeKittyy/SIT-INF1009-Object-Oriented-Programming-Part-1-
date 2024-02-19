@@ -1,27 +1,18 @@
+// Scene.java
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public abstract class Scene {
-    //Aggregation to SceneManager
-    private SceneManager sceneManager;
-    //Scene Count attribute (rethink in the future e.g. if doing chess theres only 1 scene this can throw away)
-    private int SceneCount;
+    protected Texture texture;
 
-    // Constructor
-    public Scene(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
+    public Scene(String filePath) {
+        texture = new Texture(filePath);
     }
 
-    // Abstract methods
-    public abstract void createScene();
-    public abstract void updateScene();
-    public abstract void endScene();
-
-    // Methods to obtain Scene through sceneManager
-    public SceneManager getSceneManager() {
-        return sceneManager;
+    public Texture getTexture() {
+        return texture;
     }
 
-    public void setSceneManager(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-    }
+    public abstract void dispose();
 }
