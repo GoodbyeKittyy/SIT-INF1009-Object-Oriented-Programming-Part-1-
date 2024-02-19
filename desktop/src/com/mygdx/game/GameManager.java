@@ -26,4 +26,15 @@ public class GameManager {
     public void removeEntity(Entities entity) {
         entityManager.removeEntity(entity);
     }
+    public void setPaused(boolean paused) {
+        // Implement pause logic here, such as stopping updates or rendering
+    }
+
+    public void adjustVolume(boolean increase) {
+        // Increase or decrease game volume here
+    }
+
+    public void showMenu() {
+        // Show game menu here
+    }
 }
