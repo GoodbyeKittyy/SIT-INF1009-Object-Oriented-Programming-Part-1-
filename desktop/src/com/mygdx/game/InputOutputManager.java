@@ -1,15 +1,29 @@
 // InputOutputManager.java
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+
 public class InputOutputManager {
     private TexturedObject spaceship;
     private float prevX;
     private float prevY;
 
+    private Music bgm;
+    private Sound soundeffect;
     public InputOutputManager(TexturedObject spaceship) {
         this.spaceship = spaceship;
         this.prevX = spaceship.getX();
         this.prevY = spaceship.getY();
+
+        //music
+        bgm = Gdx.audio.newMusic(Gdx.files.internal("Music/background_music.mp3"));
+        bgm.setLooping(true);
+        bgm.setVolume(5);
+        bgm.play();
+
+
     }
 
     // Method to handle input and update spaceship position
@@ -27,4 +41,12 @@ public class InputOutputManager {
             prevY = spaceship.getY();
         }
     }
+    // In InputOutputManager.java
+    public void playCollisionSound() {
+        // Assuming collisionSound is a Sound object initialized similarly to shootingSound
+        //sound effect
+        soundeffect = Gdx.audio.newSound(Gdx.files.internal("Music/effect_sound.mp3"));
+        soundeffect.play(1.0f); // Play at full volume
+    }
+
 }

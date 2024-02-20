@@ -67,8 +67,6 @@ public class GameManager extends ApplicationAdapter {
         shapeRenderer.end(); // End shape rendering
     }
 
-
-
     @Override
     public void dispose() {
         sceneManager.dispose();
@@ -76,4 +74,5 @@ public class GameManager extends ApplicationAdapter {
         entityManager.dispose();
         shapeRenderer.dispose(); // Dispose ShapeRenderer
     }
+
 }
