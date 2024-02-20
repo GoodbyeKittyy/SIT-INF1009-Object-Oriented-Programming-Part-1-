@@ -22,6 +22,7 @@ public class InputOutputManager {
         bgm.setLooping(true);
         bgm.setVolume(5);
         bgm.play();
+
     }
 
     // Method to handle input and update spaceship position
