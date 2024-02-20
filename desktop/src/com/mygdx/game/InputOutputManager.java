@@ -22,8 +22,6 @@ public class InputOutputManager {
         bgm.setLooping(true);
         bgm.setVolume(5);
         bgm.play();
-
-
     }
 
     // Method to handle input and update spaceship position
@@ -41,9 +39,8 @@ public class InputOutputManager {
             prevY = spaceship.getY();
         }
     }
-    // In InputOutputManager.java
+    //when touch then music
     public void playCollisionSound() {
-        // Assuming collisionSound is a Sound object initialized similarly to shootingSound
         //sound effect
         soundeffect = Gdx.audio.newSound(Gdx.files.internal("Music/effect_sound.mp3"));
         soundeffect.play(1.0f); // Play at full volume
