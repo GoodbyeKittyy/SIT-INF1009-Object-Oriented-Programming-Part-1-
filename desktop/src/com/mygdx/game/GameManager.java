@@ -1,4 +1,3 @@
-// GameManager.java
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -54,19 +53,23 @@ public class GameManager extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         playerControlManager.handleInput();
+        aiControlManager.update(Gdx.graphics.getDeltaTime());
 
-        aiControlManager.update(Gdx.graphics.getDeltaTime()); // Update AI-controlled ball
+        // Invoke collision check here
+        if (checkCollisionWithAI()) {
+            aiControlManager.resetPosition(); // Reset AI position if collision detected
+            System.out.println("Collision Detected!");
+        }
 
         batch.begin();
-        sceneManager.render(batch); // Render the scene first
-        entityManager.getEntities().render(batch); // Render the entities (including the spaceship)
+        sceneManager.render(batch);
+        entityManager.getEntities().render(batch);
         batch.end();
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled); // Begin shape rendering
-        aiControlManager.render(shapeRenderer); // Render the AI-controlled ball using ShapeRenderer
-        shapeRenderer.end(); // End shape rendering
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        aiControlManager.render(shapeRenderer);
+        shapeRenderer.end();
     }
-
 
 
     @Override
@@ -74,6 +77,32 @@ public class GameManager extends ApplicationAdapter {
         sceneManager.dispose();
         batch.dispose();
         entityManager.dispose();
-        shapeRenderer.dispose(); // Dispose ShapeRenderer
+        shapeRenderer.dispose();
     }
+
+    private boolean checkCollisionWithAI() {
+        TexturedObject player = entityManager.getEntities().getPlayer();
+        float playerX = player.getX();
+        float playerY = player.getY();
+        float playerWidth = player.getWidth();
+        float playerHeight = player.getHeight();
+
+        float aiX = aiControlManager.getX();
+        float aiY = aiControlManager.getY();
+        float aiRadius = aiControlManager.getRadius();
+
+        float closestX = Math.max(playerX, Math.min(aiX, playerX + playerWidth));
+        float closestY = Math.max(playerY, Math.min(aiY, playerY + playerHeight));
+
+        float distanceX = aiX - closestX;
+        float distanceY = aiY - closestY;
+
+        boolean collision = Math.sqrt(distanceX * distanceX + distanceY * distanceY) < aiRadius;
+        if (collision) {
+            System.out.println("Collision Detected!");
+            aiControlManager.resetPosition(); // Reset AI position if collision detected
+        }
+        return collision;
+    }
+
 }
