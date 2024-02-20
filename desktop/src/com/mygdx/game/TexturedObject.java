@@ -27,9 +27,18 @@ public class TexturedObject {
         texture.dispose();
     }
 
-    // Define a move method to update the position of the object
     public void move(float deltaX, float deltaY) {
         x += deltaX;
         y += deltaY;
+    }
+
+    // Getter method for x coordinate
+    public float getX() {
+        return x;
+    }
+
+    // Getter method for y coordinate
+    public float getY() {
+        return y;
     }
 }

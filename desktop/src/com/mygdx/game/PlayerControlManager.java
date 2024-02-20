@@ -5,24 +5,32 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 public class PlayerControlManager {
-    private TexturedObject spaceshipObject;
+    private TexturedObject spaceship;
+    private InputOutputManager inputOutputManager;
 
-    public PlayerControlManager(TexturedObject spaceshipObject) {
-        this.spaceshipObject = spaceshipObject;
+    public PlayerControlManager(TexturedObject spaceship, InputOutputManager inputOutputManager) {
+        this.spaceship = spaceship;
+        this.inputOutputManager = inputOutputManager;
     }
 
+    // Method to handle user input and update spaceship position
     public void handleInput() {
+        // Example key codes, you can change them according to your input controls
+        float deltaX = 0, deltaY = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            spaceshipObject.move(-5, 0);
+            deltaX -= 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            spaceshipObject.move(5, 0);
+            deltaX += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            spaceshipObject.move(0, 5);
+            deltaY += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            spaceshipObject.move(0, -5);
+            deltaY -= 1;
         }
+
+        // Call InputOutputManager to handle input and update position
+        inputOutputManager.handleInputAndUpdatePosition(deltaX, deltaY);
     }
 }

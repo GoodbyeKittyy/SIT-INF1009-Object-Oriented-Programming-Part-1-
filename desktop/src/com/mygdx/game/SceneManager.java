@@ -15,10 +15,6 @@ public class SceneManager {
         currentScene = scene;
     }
 
-    public void switchScene(Scene scene) {
-        loadScene(scene);
-    }
-
     public void render(SpriteBatch batch) {
         if (currentScene != null) {
             batch.draw(currentScene.getTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

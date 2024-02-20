@@ -1,22 +1,56 @@
 // Entities.java
 package com.mygdx.game;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+public class Entities {
+    private List<TexturedObject> texturedObjects;
+    private TexturedObject player; // Add player object
 
-public abstract class Entities {
-    protected SceneManager sceneManager;
-    protected List<TexturedObject> texturedObjects;
-
-    public Entities(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-        this.texturedObjects = new ArrayList<>();
+    public Entities(List<TexturedObject> texturedObjects) {
+        this.texturedObjects = texturedObjects;
     }
 
-    public void addTexturedObject(TexturedObject texturedObject) {
+    // Method to create entities
+    public void createEntities() {
+        AssetManager assetManager = new AssetManager();
+        assetManager.load("Entities/rick-and-morty-spaceship.png", Texture.class);
+        assetManager.finishLoading(); // Blocks until all assets are loaded
+
+        Texture spaceshipTexture = assetManager.get("Entities/rick-and-morty-spaceship.png", Texture.class);
+
+        float spaceshipX = 180;
+        float spaceshipY = 20;
+        float spaceshipScaleX = 0.1f;
+        float spaceshipScaleY = 0.1f;
+
+        // Create TexturedObject instance for spaceship
+        TexturedObject spaceship = new TexturedObject(spaceshipTexture, spaceshipX, spaceshipY, spaceshipScaleX, spaceshipScaleY);
+
+        // Set the player object
+        player = spaceship;
+
+        // Add TexturedObject to Entities
+        addTexturedObject(spaceship);
+    }
+
+    // Method to add a TexturedObject instance
+    private void addTexturedObject(TexturedObject texturedObject) {
         texturedObjects.add(texturedObject);
+    }
+
+    public List<TexturedObject> getTexturedObjects() {
+        return texturedObjects;
+    }
+
+    // Getter for the player object
+    public TexturedObject getPlayer() {
+        return player;
     }
 
     public void render(SpriteBatch batch) {

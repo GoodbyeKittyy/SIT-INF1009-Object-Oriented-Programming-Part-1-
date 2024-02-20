@@ -1,43 +1,42 @@
+// GameManager.java
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameManager extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private SceneManager sceneManager;
-    private Entities entities;
-    private TexturedObject spaceshipObject;
-    private PlayerControlManager playerControlManager;
-
-    public GameManager(SceneManager sceneManager, Entities entities) {
-        this.sceneManager = sceneManager;
-        this.entities = entities;
-    }
+    SpriteBatch batch;
+    ShapeRenderer shapeRenderer; // Add ShapeRenderer
+    SceneManager sceneManager;
+    EntityManager entityManager;
+    PlayerControlManager playerControlManager;
+    AIControlManager aiControlManager;
 
     @Override
     public void create() {
+        // Instantiate the SceneManager
+        sceneManager = new SceneManager();
+
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer(); // Instantiate ShapeRenderer
 
-        AssetManager assetManager = new AssetManager();
-        assetManager.load("rick-and-morty-spaceship.png", Texture.class);
-        assetManager.finishLoading(); // Blocks until all assets are loaded
+        // Instantiate the EntityManager
+        entityManager = new EntityManager();
 
-        Texture spaceshipTexture = assetManager.get("rick-and-morty-spaceship.png", Texture.class);
+        // Create entities using EntityManager
+        entityManager.createEntities();
 
-        float spaceshipX = 100;
-        float spaceshipY = 100;
-        float spaceshipScaleX = 1f;
-        float spaceshipScaleY = 1f;
-        spaceshipObject = new TexturedObject(spaceshipTexture, spaceshipX, spaceshipY, spaceshipScaleX, spaceshipScaleY);
-        entities.addTexturedObject(spaceshipObject);
+        // Instantiate InputOutputManager with the spaceship object retrieved from EntityManager
+        InputOutputManager inputOutputManager = new InputOutputManager(entityManager.getEntities().getTexturedObjects().get(0));
 
-        playerControlManager = new PlayerControlManager(spaceshipObject);
+        // Instantiate PlayerControlManager with the spaceship object and InputOutputManager
+        playerControlManager = new PlayerControlManager(entityManager.getEntities().getTexturedObjects().get(0), inputOutputManager);
+
+        // Instantiate AIControlManager
+        aiControlManager = new AIControlManager(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); // Pass screen width and height
 
         Scene scene = new Scene("Scenes/astronaut.png") {
             @Override
@@ -56,17 +55,25 @@ public class GameManager extends ApplicationAdapter {
 
         playerControlManager.handleInput();
 
+        aiControlManager.update(Gdx.graphics.getDeltaTime()); // Update AI-controlled ball
+
         batch.begin();
         sceneManager.render(batch); // Render the scene first
-        entities.render(batch); // Then render the entities (including the spaceship)
+        entityManager.getEntities().render(batch); // Render the entities (including the spaceship)
         batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled); // Begin shape rendering
+        aiControlManager.render(shapeRenderer); // Render the AI-controlled ball using ShapeRenderer
+        shapeRenderer.end(); // End shape rendering
     }
+
 
 
     @Override
     public void dispose() {
         sceneManager.dispose();
         batch.dispose();
-        entities.dispose();
+        entityManager.dispose();
+        shapeRenderer.dispose(); // Dispose ShapeRenderer
     }
 }
