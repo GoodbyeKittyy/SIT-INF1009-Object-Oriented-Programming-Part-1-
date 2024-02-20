@@ -1,35 +1,67 @@
+// Entities.java
 package com.mygdx.game;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
-public abstract class Entities {
-    protected int x, y;
-    protected int width, height;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Entities(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+public class Entities {
+    private List<TexturedObject> texturedObjects;
+    private TexturedObject player; // Add player object
+
+    public Entities(List<TexturedObject> texturedObjects) {
+        this.texturedObjects = texturedObjects;
     }
 
-    public abstract void update(float deltaTime);
+    // Method to create entities
+    public void createEntities() {
+        AssetManager assetManager = new AssetManager();
+        assetManager.load("Entities/rick-and-morty-spaceship.png", Texture.class);
+        assetManager.finishLoading(); // Blocks until all assets are loaded
 
-    public abstract void draw(SpriteBatch spriteBatch);
+        Texture spaceshipTexture = assetManager.get("Entities/rick-and-morty-spaceship.png", Texture.class);
 
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
+        float spaceshipX = 180;
+        float spaceshipY = 20;
+        float spaceshipScaleX = 0.1f;
+        float spaceshipScaleY = 0.1f;
+
+        // Create TexturedObject instance for spaceship
+        TexturedObject spaceship = new TexturedObject(spaceshipTexture, spaceshipX, spaceshipY, spaceshipScaleX, spaceshipScaleY);
+
+        // Set the player object
+        player = spaceship;
+
+        // Add TexturedObject to Entities
+        addTexturedObject(spaceship);
     }
 
-    public boolean collidesWith(Entities entity) {
-        Rectangle thisBounds = this.getBounds();
-        Rectangle otherBounds = entity.getBounds();
-        return thisBounds.overlaps(otherBounds);
+    // Method to add a TexturedObject instance
+    private void addTexturedObject(TexturedObject texturedObject) {
+        texturedObjects.add(texturedObject);
     }
 
-    public void handleCollision(Entities entity, Entities collidedObj) {
-        // Handle collision logic here
-        // This is an abstract method, so subclasses must implement it
+    public List<TexturedObject> getTexturedObjects() {
+        return texturedObjects;
+    }
+
+    // Getter for the player object
+    public TexturedObject getPlayer() {
+        return player;
+    }
+
+    public void render(SpriteBatch batch) {
+        for (TexturedObject texturedObject : texturedObjects) {
+            texturedObject.render(batch);
+        }
+    }
+
+    public void dispose() {
+        for (TexturedObject texturedObject : texturedObjects) {
+            texturedObject.dispose();
+        }
     }
 }
