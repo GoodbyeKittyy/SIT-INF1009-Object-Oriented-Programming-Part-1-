@@ -14,6 +14,8 @@ public class GameManager extends ApplicationAdapter {
     PlayerControlManager playerControlManager;
     AIControlManager aiControlManager;
 
+    InputOutputManager inputOutputManager;
+
     @Override
     public void create() {
         // Instantiate the SceneManager
@@ -29,7 +31,7 @@ public class GameManager extends ApplicationAdapter {
         entityManager.createEntities();
 
         // Instantiate InputOutputManager with the spaceship object retrieved from EntityManager
-        InputOutputManager inputOutputManager = new InputOutputManager(entityManager.getEntities().getTexturedObjects().get(0));
+        inputOutputManager = new InputOutputManager(entityManager.getEntities().getTexturedObjects().get(0));
 
         // Instantiate PlayerControlManager with the spaceship object and InputOutputManager
         playerControlManager = new PlayerControlManager(entityManager.getEntities().getTexturedObjects().get(0), inputOutputManager);
@@ -57,6 +59,9 @@ public class GameManager extends ApplicationAdapter {
 
         // Invoke collision check here
         if (checkCollisionWithAI()) {
+            if (inputOutputManager != null) { // Check if inputOutputManager is initialized
+                inputOutputManager.playCollisionSound();
+            }
             aiControlManager.resetPosition(); // Reset AI position if collision detected
             System.out.println("Collision Detected!");
         }
