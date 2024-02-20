@@ -1,35 +1,30 @@
+// EntityManager.java
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityManager {
-    private List<Entities> entities = new ArrayList<>();
-    private final CollisionManager collisionManager;
+    private Entities entities;
 
-    public EntityManager(CollisionManager collisionManager) {
-        this.collisionManager = collisionManager;
+    public EntityManager() {
+        // Instantiate the Entities with an empty list
+        entities = new Entities(new ArrayList<>());
     }
 
-    public void addEntity(Entities entity) {
-        entities.add(entity);
+    // Method to create entities
+    public void createEntities() {
+        // Add entities to the Entities object
+        entities.createEntities();
     }
 
-    public void removeEntity(Entities entity) {
-        entities.remove(entity);
+    // Getter for the Entities
+    public Entities getEntities() {
+        return entities;
     }
 
-    public void update(float deltaTime) {
-        for (Entities entity : entities) {
-            entity.update(deltaTime);
-        }
-        collisionManager.checkCollisions();
-    }
-
-    public void draw(SpriteBatch spriteBatch) {
-        for (Entities entity : entities) {
-            entity.draw(spriteBatch);
-        }
+    // Method to dispose of resources
+    public void dispose() {
+        entities.dispose();
     }
 }

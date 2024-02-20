@@ -1,50 +1,42 @@
 package com.mygdx.game;
 
-import java.util.List;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import java.util.Random;
 
-public class AIControlManager {
-    private GameManager gameManager;
-    private PlayerControlManager playerControlManager;
+public class AIControlManager implements ControlledEntity {
+    private float speed;
+    private float x;
+    private float y;
+    private float radius;
+    private float screenWidth;
+    private float screenHeight;
     private Random random;
-    public AIControlManager(GameManager gameManager, PlayerControlManager playerControlManager) {
-        this.gameManager = gameManager;
-        this.playerControlManager = playerControlManager;
-        this.directRelationshipWithGameManager();
-        this.directRelationshipWithPlayerControlManager();
+
+    public AIControlManager(float screenWidth, float screenHeight) {
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
         this.random = new Random();
+        this.speed = 20; // Initial speed
+        this.x = random.nextFloat() * screenWidth; // Random initial x position
+        this.y = screenHeight; // Start at the top of the screen
+        this.radius = 30; // Radius of the ball
     }
 
-    // Method to control AI entities in the game but dk what game so cannot control.
-    //unless u wan the AI to follow player then can add inside if not idk what to put for a basic control AI
-    public void controlAI(List<Entities> entities) {
-        for (Entities entity : entities) {
+    public void update(float delta) {
+        // Move the ball downwards based on speed and delta time
+        y -= speed * delta;
 
+        // If the ball exits the screen, reset its position to the top with a random x position
+        if (y < -radius) {
+            y = screenHeight;
+            x = random.nextFloat() * screenWidth;
         }
     }
 
-    public void directRelationshipWithGameManager() {
-        /*gameManager.addLifecycleListener(new ApplicationListener() {
-            @Override
-            // AI move when the game starts, DK what game so idk what to put inside
-            public void onGameStart() {
-            }
-
-            @Override
-            //AI stop all activities when the game ends
-            public void onGameEnd() {
-            }
-        });*/
-    }
-
-    //Method to link with player control manager but idk what to put cuz idk wat game we going for
-    public void directRelationshipWithPlayerControlManager() {
-
-    }
-
-    //for the ai to follow the lifecycle
-    public interface ApplicationListener {
-        void onGameStart();
-        void onGameEnd();
+    public void render(ShapeRenderer shapeRenderer) {
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.circle(x, y, radius);
     }
 }
