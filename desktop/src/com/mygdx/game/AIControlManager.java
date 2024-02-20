@@ -1,22 +1,25 @@
 package com.mygdx.game;
 
 import java.util.List;
+import java.util.Random;
 
 public class AIControlManager {
     private GameManager gameManager;
     private PlayerControlManager playerControlManager;
-
+    private Random random;
     public AIControlManager(GameManager gameManager, PlayerControlManager playerControlManager) {
         this.gameManager = gameManager;
         this.playerControlManager = playerControlManager;
         this.directRelationshipWithGameManager();
         this.directRelationshipWithPlayerControlManager();
+        this.random = new Random();
     }
 
     // Method to control AI entities in the game but dk what game so cannot control.
     //unless u wan the AI to follow player then can add inside if not idk what to put for a basic control AI
     public void controlAI(List<Entities> entities) {
         for (Entities entity : entities) {
+
         }
     }
 

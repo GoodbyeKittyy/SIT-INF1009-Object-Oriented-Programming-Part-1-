@@ -16,7 +16,8 @@ public class OutputManager {
 
         //Music and Sound
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("background_music.mp3"));
-        effectSound = Gdx.audio.newSound(Gdx.files.internal("effect_sound.wav"));
+        effectSound = Gdx.audio.newSound(Gdx.files.internal("effect_sound.mp3" +
+                ""));
     }
 
     public void playBackgroundMusic(boolean loop) {
