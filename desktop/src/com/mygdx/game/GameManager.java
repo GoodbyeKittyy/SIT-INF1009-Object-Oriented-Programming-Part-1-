@@ -99,7 +99,7 @@ public class GameManager extends ApplicationAdapter {
 
         boolean collision = Math.sqrt(distanceX * distanceX + distanceY * distanceY) < aiRadius;
         if (collision) {
-            System.out.println("Collision Detected!");
+//            System.out.println("Collision Detected!");
             aiControlManager.resetPosition(); // Reset AI position if collision detected
         }
         return collision;
