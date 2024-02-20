@@ -1,4 +1,3 @@
-// Entities.java
 package com.mygdx.game;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -62,6 +61,24 @@ public class Entities {
     public void dispose() {
         for (TexturedObject texturedObject : texturedObjects) {
             texturedObject.dispose();
+        }
+    }
+
+    // Collision detection method
+    public boolean checkCollision(TexturedObject obj1, TexturedObject obj2) {
+        return obj1.getX() < obj2.getX() + obj2.getWidth() &&
+                obj1.getX() + obj1.getWidth() > obj2.getX() &&
+                obj1.getY() < obj2.getY() + obj2.getHeight() &&
+                obj1.getY() + obj1.getHeight() > obj2.getY();
+    }
+
+    // Example method to check and handle all collisions
+    public void checkAndHandleCollisions() {
+        for (TexturedObject obj : texturedObjects) {
+            if (obj != player && checkCollision(player, obj)) {
+                System.out.println("Collision Detected!");
+                // Handle the collision here (e.g., remove the object, reduce health)
+            }
         }
     }
 }

@@ -39,4 +39,22 @@ public class AIControlManager implements ControlledEntity {
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.circle(x, y, radius);
     }
+    public void resetPosition() {
+        this.x = random.nextFloat() * screenWidth;
+        this.y = screenHeight;
+    }
+
+    // Getter methods for position and radius, if not already present
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
 }
