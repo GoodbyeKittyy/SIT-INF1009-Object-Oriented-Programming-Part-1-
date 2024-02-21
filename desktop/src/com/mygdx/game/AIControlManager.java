@@ -39,9 +39,18 @@ public class AIControlManager implements ControlledEntity {
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.circle(x, y, radius);
     }
+
     public void resetPosition() {
         this.x = random.nextFloat() * screenWidth;
         this.y = screenHeight;
+    }
+
+    // Implementation of the onCollisionDetected method
+    @Override
+    public void onCollisionDetected() {
+        // Define the behavior for collision detection here
+        // For example, you can reset the position of the AI entity
+        resetPosition();
     }
 
     // Getter methods for position and radius, if not already present

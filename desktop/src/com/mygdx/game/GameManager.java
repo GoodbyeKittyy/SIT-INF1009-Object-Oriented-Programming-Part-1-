@@ -8,45 +8,32 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameManager extends ApplicationAdapter {
     SpriteBatch batch;
-    ShapeRenderer shapeRenderer; // Add ShapeRenderer
+    ShapeRenderer shapeRenderer;
     SceneManager sceneManager;
     EntityManager entityManager;
     PlayerControlManager playerControlManager;
     AIControlManager aiControlManager;
-
     InputOutputManager inputOutputManager;
+    ControlledEntity collidable;
 
     @Override
     public void create() {
-        // Instantiate the SceneManager
         sceneManager = new SceneManager();
-
         batch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer(); // Instantiate ShapeRenderer
-
-        // Instantiate the EntityManager
+        shapeRenderer = new ShapeRenderer();
         entityManager = new EntityManager();
-
-        // Create entities using EntityManager
         entityManager.createEntities();
-
-        // Instantiate InputOutputManager with the spaceship object retrieved from EntityManager
         inputOutputManager = new InputOutputManager(entityManager.getEntities().getTexturedObjects().get(0));
-
-        // Instantiate PlayerControlManager with the spaceship object and InputOutputManager
         playerControlManager = new PlayerControlManager(entityManager.getEntities().getTexturedObjects().get(0), inputOutputManager);
-
-        // Instantiate AIControlManager
-        aiControlManager = new AIControlManager(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); // Pass screen width and height
-
+        aiControlManager = new AIControlManager(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Scene scene = new Scene("Scenes/astronaut.png") {
             @Override
             public void dispose() {
                 texture.dispose();
             }
         };
-
         sceneManager.loadScene(scene);
+        collidable = new Collidable(); // Instantiate Collidable object
     }
 
     @Override
@@ -57,13 +44,12 @@ public class GameManager extends ApplicationAdapter {
         playerControlManager.handleInput();
         aiControlManager.update(Gdx.graphics.getDeltaTime());
 
-        // Invoke collision check here
         if (checkCollisionWithAI()) {
-            if (inputOutputManager != null) { // Check if inputOutputManager is initialized
+            if (inputOutputManager != null) {
                 inputOutputManager.playCollisionSound();
             }
-            aiControlManager.resetPosition(); // Reset AI position if collision detected
-            System.out.println("Collision Detected!");
+            aiControlManager.resetPosition();
+            collidable.onCollisionDetected(); // Call onCollisionDetected method
         }
 
         batch.begin();
@@ -75,7 +61,6 @@ public class GameManager extends ApplicationAdapter {
         aiControlManager.render(shapeRenderer);
         shapeRenderer.end();
     }
-
 
     @Override
     public void dispose() {
@@ -103,11 +88,7 @@ public class GameManager extends ApplicationAdapter {
         float distanceY = aiY - closestY;
 
         boolean collision = Math.sqrt(distanceX * distanceX + distanceY * distanceY) < aiRadius;
-        if (collision) {
-//            System.out.println("Collision Detected!");
-            aiControlManager.resetPosition(); // Reset AI position if collision detected
-        }
+
         return collision;
     }
-
 }

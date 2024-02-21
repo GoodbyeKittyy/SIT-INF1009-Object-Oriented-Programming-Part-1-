@@ -64,14 +64,6 @@ public class Entities {
         }
     }
 
-    // Collision detection method
-    public boolean checkCollision(TexturedObject obj1, TexturedObject obj2) {
-        return obj1.getX() < obj2.getX() + obj2.getWidth() &&
-                obj1.getX() + obj1.getWidth() > obj2.getX() &&
-                obj1.getY() < obj2.getY() + obj2.getHeight() &&
-                obj1.getY() + obj1.getHeight() > obj2.getY();
-    }
-
     // Example method to check and handle all collisions
 
 }
