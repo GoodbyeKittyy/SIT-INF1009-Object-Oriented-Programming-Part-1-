@@ -1,4 +1,4 @@
-### INF1009 Object Oriented Programming Part 1 
+### INF1009 Object Oriented Programming Part 1 Team Project
 
 Thank you for stopping by! :)
 
