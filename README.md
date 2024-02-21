@@ -18,12 +18,13 @@ If you wish to manually import the files, you will need to include the libGDX li
 
 ### Contributors:
 
--   [@cheonghf] (https://github.com/cheonghf)
--   [@suffyduffy] (https://github.com/suffyduffy)
--   [@Taeckun] (https://github.com/Taeckun)
--   [@UdanaYeo] (https://github.com/UdanaYeo)
--   [@yapjh430] (https://github.com/yapjh430)
--   [@GoodbyeKittyyy] (https://github.com/GoodbyeKittyyy)<br><br>
+- [@cheonghf](https://github.com/cheonghf)
+- [@suffyduffy](https://github.com/suffyduffy)
+- [@Taeckun](https://github.com/Taeckun)
+- [@UdanaYeo](https://github.com/UdanaYeo)
+- [@yapjh430](https://github.com/yapjh430)
+- [@GoodbyeKittyyy](https://github.com/GoodbyeKittyyy)
+
 
 ### Asset Citations:
 
