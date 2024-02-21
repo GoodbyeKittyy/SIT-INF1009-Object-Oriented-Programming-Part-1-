@@ -18,16 +18,16 @@ public class PlayerControlManager {
         // Example key codes, you can change them according to your input controls
         float deltaX = 0, deltaY = 0;
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            deltaX -= 1;
+            deltaX -= 4;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            deltaX += 1;
+            deltaX += 4;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            deltaY += 1;
+            deltaY += 4;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            deltaY -= 1;
+            deltaY -= 4;
         }
 
         // Call InputOutputManager to handle input and update position

@@ -18,7 +18,7 @@ public class AIControlManager implements ControlledEntity {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.random = new Random();
-        this.speed = 20; // Initial speed
+        this.speed = 40; // Initial speed
         this.x = random.nextFloat() * screenWidth; // Random initial x position
         this.y = screenHeight; // Start at the top of the screen
         this.radius = 30; // Radius of the ball

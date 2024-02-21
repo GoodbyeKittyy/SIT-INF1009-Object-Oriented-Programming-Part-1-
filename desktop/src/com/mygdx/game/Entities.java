@@ -73,12 +73,5 @@ public class Entities {
     }
 
     // Example method to check and handle all collisions
-    public void checkAndHandleCollisions() {
-        for (TexturedObject obj : texturedObjects) {
-            if (obj != player && checkCollision(player, obj)) {
-                System.out.println("Collision Detected!");
-                // Handle the collision here (e.g., remove the object, reduce health)
-            }
-        }
-    }
+
 }
