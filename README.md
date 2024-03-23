@@ -34,7 +34,7 @@ If you wish to manually import the files, you will need to include the libGDX li
 - [@Taeckun](https://github.com/Taeckun)
 - [@UdanaYeo](https://github.com/UdanaYeo)
 - [@yapjh430](https://github.com/yapjh430)
-- [@GoodbyeKittyyy](https://github.com/GoodbyeKittyyy)
+- [@GoodbyeKittyy](https://github.com/GoodbyeKittyy)
 
 
 ## Asset Citations:
